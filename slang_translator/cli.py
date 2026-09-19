@@ -7,11 +7,11 @@ import json
 
 import pandas as pd
 
-from .config import CLEANED_CSV, RAW_CSV, TEST_CSV
+from .config import CLEANED_CSV, TEST_CSV
 from .detector import FormalityDetector, train_detector
 from .format import build_splits
 from .metrics import corpus_bleu, sentence_bleu
-from .preprocess import load_parallel
+from .preprocess import load_all_training_pairs
 from .style import enforce_slang, slang_score
 
 
@@ -21,7 +21,7 @@ def cmd_prepare(_args) -> None:
 
 
 def cmd_detector(_args) -> None:
-    df = load_parallel(RAW_CSV)
+    df = load_all_training_pairs()
     result = train_detector(df)
     print(json.dumps(result, indent=2))
 

@@ -4,8 +4,8 @@ from pathlib import Path
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
-from .config import CLEANED_CSV, FORMATTED_JSONL, RAW_CSV, TEST_CSV, TRAIN_JSONL, VAL_JSONL
-from .preprocess import load_parallel
+from .config import CLEANED_CSV, FORMATTED_JSONL, TEST_CSV, TRAIN_JSONL, VAL_JSONL
+from .preprocess import load_all_training_pairs
 from .style import jaccard, lexical_slangify, render_llama_prompt, slang_score
 
 
@@ -22,7 +22,7 @@ def _keep_pair(formal: str, slang: str) -> bool:
 
 
 def build_splits(seed: int = 42, test_size: float = 0.1, val_size: float = 0.1) -> dict:
-    df = load_parallel(RAW_CSV)
+    df = load_all_training_pairs()
     df["slang"] = [_strengthen_slang(f, s) for f, s in zip(df["formal"], df["slang"])]
     df = df[df.apply(lambda r: _keep_pair(r["formal"], r["slang"]), axis=1)].reset_index(drop=True)
     CLEANED_CSV.parent.mkdir(parents=True, exist_ok=True)

@@ -5,6 +5,11 @@ DATA_DIR = ROOT / "Dataa"
 MODELS_DIR = ROOT / "models"
 
 RAW_CSV = DATA_DIR / "raw_data_fixed.csv"
+GENZ_DIR = DATA_DIR / "genz"
+GENZ_CSVS = (
+    GENZ_DIR / "genz_dataset.csv",
+    GENZ_DIR / "gen_z_slangs_translation.csv",
+)
 CLEANED_CSV = DATA_DIR / "cleaned_data.csv"
 TRAIN_JSONL = DATA_DIR / "train.jsonl"
 VAL_JSONL = DATA_DIR / "val.jsonl"
